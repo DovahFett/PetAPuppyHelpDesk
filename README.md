@@ -1,3 +1,4 @@
 # PetAPuppyHelpDesk
 PetAPuppy help desk
-a readme
+
+This application handles the creation and assignment of support tickets, in addition to the user accounts associated with those tickets.
