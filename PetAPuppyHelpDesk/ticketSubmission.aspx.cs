@@ -10,8 +10,9 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Net.Mail;
 
-//Jonathon Hayden
-//Ticket page.  Shows user data and allows submission of tickets.
+//Jonathon Hayden, 04/21/20
+//Customer page.  
+//Shows users their data and allows the submission of tickets, as well as viewing existing tickets.
 namespace PetAPuppyHelpDesk
 {
     public partial class WebForm2 : System.Web.UI.Page
