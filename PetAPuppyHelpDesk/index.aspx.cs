@@ -161,6 +161,8 @@ namespace PetAPuppyHelpDesk
             txtPassword.Text = "";
             txtAddress.Text = "";
             lblError.Text = "";
+            txtPhoneNumber.Text = "";
+            txtEmail.Text = "";
             pnlResults.Visible = false;
         }
 

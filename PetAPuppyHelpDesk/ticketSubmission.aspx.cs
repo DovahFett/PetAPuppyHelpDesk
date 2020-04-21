@@ -18,6 +18,8 @@ namespace PetAPuppyHelpDesk
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //get the connection property from web config
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PetAPuppyHelpDesk"].ConnectionString);
             //Check if page is being loaded for first time.
             if (!Page.IsPostBack)
             {
@@ -30,8 +32,6 @@ namespace PetAPuppyHelpDesk
                 lblPhoneNumber.Text = "Phone Number: " + Session["Phone Number"];
 
                 //Get list of issue types
-                //get the connection property from web config
-                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PetAPuppyHelpDesk"].ConnectionString);
                 //open the connection object
                 conn.Open();
                 //set the stored procedure command
@@ -45,37 +45,39 @@ namespace PetAPuppyHelpDesk
                 ddlTicketType.DataBind(); //bind data to ddl
                 conn.Close();
 
-                //Load open tickets belonging to the user
-                conn.Open();
-                SqlCommand cmdGetUsersOpenTickets = new SqlCommand("GetOpenTicketIDs", conn);
-                cmdGetUsersOpenTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
-                cmdGetUsersOpenTickets.CommandType = CommandType.StoredProcedure;
-                SqlDataReader dr = cmdGetUsersOpenTickets.ExecuteReader();
-
-                ddlSelectOpenTicket.DataSource = dr;
-                ddlSelectOpenTicket.DataTextField = "TicketID";
-                ddlSelectOpenTicket.DataValueField = "TicketID";
-                ddlSelectOpenTicket.DataBind();
-
-                conn.Close();
-
-               
-                //Load closed tickets belonging to the user
-                conn.Open();
-                SqlCommand cmdGetUsersClosedTickets = new SqlCommand("GetClosedTicketIDs", conn);
-                cmdGetUsersClosedTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
-                cmdGetUsersClosedTickets.CommandType = CommandType.StoredProcedure;
-                SqlDataReader dr2 = cmdGetUsersClosedTickets.ExecuteReader();
-
-                ddlSelectClosedTicket.DataSource = dr2;
-                ddlSelectClosedTicket.DataTextField = "TicketID";
-                ddlSelectClosedTicket.DataValueField = "TicketID";
-                ddlSelectClosedTicket.DataBind();
-
-                conn.Close();
+                
 
 
-            } 
+            }
+
+            //Load open tickets belonging to the user
+            conn.Open();
+            SqlCommand cmdGetUsersOpenTickets = new SqlCommand("GetOpenTicketIDs", conn);
+            cmdGetUsersOpenTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
+            cmdGetUsersOpenTickets.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmdGetUsersOpenTickets.ExecuteReader();
+
+            ddlSelectOpenTicket.DataSource = dr;
+            ddlSelectOpenTicket.DataTextField = "TicketID";
+            ddlSelectOpenTicket.DataValueField = "TicketID";
+            ddlSelectOpenTicket.DataBind();
+
+            conn.Close();
+
+
+            //Load closed tickets belonging to the user
+            conn.Open();
+            SqlCommand cmdGetUsersClosedTickets = new SqlCommand("GetClosedTicketIDs", conn);
+            cmdGetUsersClosedTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
+            cmdGetUsersClosedTickets.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr2 = cmdGetUsersClosedTickets.ExecuteReader();
+
+            ddlSelectClosedTicket.DataSource = dr2;
+            ddlSelectClosedTicket.DataTextField = "TicketID";
+            ddlSelectClosedTicket.DataValueField = "TicketID";
+            ddlSelectClosedTicket.DataBind();
+
+            conn.Close();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -114,13 +116,6 @@ namespace PetAPuppyHelpDesk
             //Execute command and listen for response
             rdr = cmdAddTicket.ExecuteReader();
 
-
-            //save data to database
-            //cmdAddTicket.ExecuteNonQuery();
-
-
-
-
             int ticketID = 0;
             //Read response from command
             while (rdr.Read())
@@ -156,11 +151,6 @@ namespace PetAPuppyHelpDesk
 
             //Close connection
             conn.Close();
-
-           
-            
-               
-            
 
             //Email user so that they know their ticket has been received.
             MailMessage mail = new MailMessage();
@@ -250,17 +240,21 @@ namespace PetAPuppyHelpDesk
             txtReturnDescription.Text = ticketDescription;
             lblLastModified.Text = "Last Modified: " + ticketDate;
             txtSolution.Text = ticketSolution;
-
-
-
             conn.Close();
         }
 
+        //Updates the ticket information.
         protected void btnUpdateTicket_Click(object sender, EventArgs e)
         {
             string ticketID = ddlSelectOpenTicket.SelectedValue;
             string ticketStatus = ddlTicketStatus.SelectedValue;
             string ticketDescription = txtReturnDescription.Text;
+
+            //If user did not resolve the ticket, keep it open.
+            if(ticketStatus.Equals("None"))
+            {
+                ticketStatus = "Open";
+            }
 
             //get the connection property from web config
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PetAPuppyHelpDesk"].ConnectionString);
@@ -274,9 +268,6 @@ namespace PetAPuppyHelpDesk
             cmdUpdateTicketInfo.CommandType = CommandType.StoredProcedure;
             cmdUpdateTicketInfo.ExecuteNonQuery();
             conn.Close();
-
-
-
         }
     }
 }

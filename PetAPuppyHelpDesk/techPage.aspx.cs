@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.IO;
 
 namespace PetAPuppyHelpDesk
 {
@@ -96,6 +97,42 @@ namespace PetAPuppyHelpDesk
             cmdAddSolution.Parameters.AddWithValue("@Solution", ticketSolution);
             cmdAddSolution.CommandType = CommandType.StoredProcedure;
             cmdAddSolution.ExecuteNonQuery();
+        }
+
+        //Downloads the image associated with the selected user ID.
+        protected void btnDownloadImage_Click(object sender, EventArgs e)
+        {
+            //Byte array to store image
+            byte[] bytes = null;
+            //Get selected ticket ID.
+            int ticketID = Int16.Parse(ddlSelectOpenTicket.SelectedValue);
+            //get the connection property from web config
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["PetAPuppyHelpDesk"].ConnectionString);
+            conn.Open();
+            SqlCommand cmdGetScreenshot = new SqlCommand("GetScreenshot", conn);
+            cmdGetScreenshot.Parameters.AddWithValue("@TicketID", ticketID);
+            cmdGetScreenshot.CommandType = CommandType.StoredProcedure;
+            cmdGetScreenshot.ExecuteNonQuery();
+            //Store image bytes
+            SqlDataReader rdr = cmdGetScreenshot.ExecuteReader();
+            while (rdr.Read())
+            {
+                bytes = (byte[])rdr["TicketScreenshot"];
+            }
+
+
+            conn.Close();
+
+            //Download image to user.
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.ContentType = "image/png";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + ddlSelectOpenTicket.SelectedValue + ".png");
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End(); //Stops execution of the page. 
         }
     }
 }

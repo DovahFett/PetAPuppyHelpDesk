@@ -20,7 +20,7 @@
         <br />
         <asp:Label ID="lblPhoneNumber" runat="server" Text="Phone Number: " class="newAccount"></asp:Label>
 
-    <div><h2 class="headerTicketDetails"> Ticket Details </h2> </div>
+    <div><h2 class="headerTicketDetailsTech"> Ticket Details </h2> </div>
         <br />
         <br />
         <br />
@@ -53,8 +53,9 @@
         <br />
         <br />
         <div>
-                <asp:Button ID="btnReturnTicket" runat="server" Text="Load Ticket"  class="alterTicket" OnClick="btnReturnTicket_Click"/>
-                <asp:Button ID="btnUpdateTicket" runat="server" Text="Update Ticket"  class="alterTicket" OnClick="btnUpdateTicket_Click"/>
+                <asp:Button ID="btnReturnTicket" runat="server" Text="Load Ticket"  class="alterTicketButtons" OnClick="btnReturnTicket_Click"/>
+                <asp:Button ID="btnDownloadImage" runat="server" Text="Download Image"  class="alterTicketButtons" OnClick="btnDownloadImage_Click"/>
+                <asp:Button ID="btnUpdateTicket" runat="server" Text="Update Ticket"  class="alterTicketButtons" OnClick="btnUpdateTicket_Click"/>
         </div>
         <br />
         <br />

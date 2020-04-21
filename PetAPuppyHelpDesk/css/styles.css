@@ -58,6 +58,12 @@ body {
     float: right;
 }
 
+.alterTicketButtons {
+    display: block;
+    margin-right: 60px;
+    float: right;
+}
+
 .issueReturnDescription {
     display: block;
     margin-right: 40px;
@@ -101,7 +107,13 @@ body {
     margin-left: 1550px;
     float: left;
 }
-.headerTicketDetails {
+.headerTicketDetailsTech {
+    display: block;
+    margin-left: 1300px;
+    float: left;
+}
+
+.headerTicketDetailsAdmin {
     display: block;
     margin-left: 1550px;
     float: left;
@@ -119,4 +131,10 @@ body {
     width: 300px;
     height: 100px;
     float: right;
+}
+.lblError
+{
+    display:block;
+    margin-right:100px;
+    float:left;
 }

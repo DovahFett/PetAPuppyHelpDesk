@@ -69,8 +69,8 @@
     <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" class="newAccount"/>
     <br />
     <br />
-    <asp:Panel ID="pnlResults" runat="server" Visible="False">
-                <asp:Label ID="lblError" runat="server" Text="lblError."></asp:Label>
+    <asp:Panel ID="pnlResults" runat="server" Visible="False" CssClass="lblError">
+                <asp:Label ID="lblError" runat="server" Text="lblError" CssClass="lblError"></asp:Label>
     </asp:Panel>
 </asp:Content>
 

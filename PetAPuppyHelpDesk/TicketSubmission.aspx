@@ -50,7 +50,7 @@
         
         <div>        
             <asp:DropDownList ID="ddlTicketStatus" runat="server" class="alterTicket">
-                    <asp:ListItem Value="Open"> Unresolved </asp:ListItem>
+                     <asp:ListItem Value="None"> No Change </asp:ListItem>
                     <asp:ListItem Value="Closed"> Resolved </asp:ListItem>
                 </asp:DropDownList>
         </div> 
