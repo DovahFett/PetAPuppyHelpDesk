@@ -119,11 +119,18 @@ body {
     float: left;
 }
 
+.headerTicketDetailsCustomer {
+    display: block;
+    margin-left: 1550px;
+    float: left;
+}
+
 .lblLastModified {
     display: block;
     margin-left: 1550px;
     float: left;
 }
+
 
 .issueReturnSolution {
     display: block;

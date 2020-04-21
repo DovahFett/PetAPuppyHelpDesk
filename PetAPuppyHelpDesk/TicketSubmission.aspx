@@ -23,7 +23,7 @@
         <br />
         <asp:Label ID="lblPhoneNumber" runat="server" Text="Phone Number: " class="newAccount"></asp:Label>
     
-        <div><h2 class="headerTicketDetails"> Ticket Details </h2> </div>
+        <div><h2 class="headerTicketDetailsCustomer"> Ticket Details </h2> </div>
         <br />
         <br />
         <br />

@@ -125,7 +125,7 @@ namespace PetAPuppyHelpDesk
 
 
             conn.Close();
-
+            
             //Download image to user.
             Response.Clear();
             Response.Buffer = true;
