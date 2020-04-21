@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PetAPuppy.Master.cs" Inherits="PetAPuppyHelpDesk.Site1" %>
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="cphStyles" runat="server">
+        <link href="css/styles.css" rel="stylesheet" />
+    </asp:ContentPlaceHolder>
+    
+    <title>Pet A Puppy</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ContentPlaceHolder ID="cphTitle" runat="server">   
+            <h1>Name of Page</h1> 
+        </asp:ContentPlaceHolder>
+         
+        <asp:ContentPlaceHolder ID="cphLogo" runat="server">
+            <div class="logo">
+                <img src="images/puppy.png" alt="A cartoon puppy"/>
+            </div>
+        </asp:ContentPlaceHolder>
+        
+        <asp:ContentPlaceHolder ID="cphBody" runat="server">
+
+        </asp:ContentPlaceHolder>
+
+    </form>
+</body>
+</html>
