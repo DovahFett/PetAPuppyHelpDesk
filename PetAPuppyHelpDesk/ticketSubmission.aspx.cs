@@ -46,39 +46,39 @@ namespace PetAPuppyHelpDesk
                 ddlTicketType.DataBind(); //bind data to ddl
                 conn.Close();
 
-                
+                //Load open tickets belonging to the user
+                conn.Open();
+                SqlCommand cmdGetUsersOpenTickets = new SqlCommand("GetOpenTicketIDs", conn);
+                cmdGetUsersOpenTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
+                cmdGetUsersOpenTickets.CommandType = CommandType.StoredProcedure;
+                SqlDataReader dr = cmdGetUsersOpenTickets.ExecuteReader();
+
+                ddlSelectOpenTicket.DataSource = dr;
+                ddlSelectOpenTicket.DataTextField = "TicketID";
+                ddlSelectOpenTicket.DataValueField = "TicketID";
+                ddlSelectOpenTicket.DataBind();
+
+                conn.Close();
+
+
+                //Load closed tickets belonging to the user
+                conn.Open();
+                SqlCommand cmdGetUsersClosedTickets = new SqlCommand("GetClosedTicketIDs", conn);
+                cmdGetUsersClosedTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
+                cmdGetUsersClosedTickets.CommandType = CommandType.StoredProcedure;
+                SqlDataReader dr2 = cmdGetUsersClosedTickets.ExecuteReader();
+
+                ddlSelectClosedTicket.DataSource = dr2;
+                ddlSelectClosedTicket.DataTextField = "TicketID";
+                ddlSelectClosedTicket.DataValueField = "TicketID";
+                ddlSelectClosedTicket.DataBind();
+
+                conn.Close();
 
 
             }
 
-            //Load open tickets belonging to the user
-            conn.Open();
-            SqlCommand cmdGetUsersOpenTickets = new SqlCommand("GetOpenTicketIDs", conn);
-            cmdGetUsersOpenTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
-            cmdGetUsersOpenTickets.CommandType = CommandType.StoredProcedure;
-            SqlDataReader dr = cmdGetUsersOpenTickets.ExecuteReader();
-
-            ddlSelectOpenTicket.DataSource = dr;
-            ddlSelectOpenTicket.DataTextField = "TicketID";
-            ddlSelectOpenTicket.DataValueField = "TicketID";
-            ddlSelectOpenTicket.DataBind();
-
-            conn.Close();
-
-
-            //Load closed tickets belonging to the user
-            conn.Open();
-            SqlCommand cmdGetUsersClosedTickets = new SqlCommand("GetClosedTicketIDs", conn);
-            cmdGetUsersClosedTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
-            cmdGetUsersClosedTickets.CommandType = CommandType.StoredProcedure;
-            SqlDataReader dr2 = cmdGetUsersClosedTickets.ExecuteReader();
-
-            ddlSelectClosedTicket.DataSource = dr2;
-            ddlSelectClosedTicket.DataTextField = "TicketID";
-            ddlSelectClosedTicket.DataValueField = "TicketID";
-            ddlSelectClosedTicket.DataBind();
-
-            conn.Close();
+            
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -268,6 +268,36 @@ namespace PetAPuppyHelpDesk
             cmdUpdateTicketInfo.Parameters.AddWithValue("@TicketDescription", ticketDescription);
             cmdUpdateTicketInfo.CommandType = CommandType.StoredProcedure;
             cmdUpdateTicketInfo.ExecuteNonQuery();
+            conn.Close();
+
+
+            //Load open tickets belonging to the user
+            conn.Open();
+            SqlCommand cmdGetUsersOpenTickets = new SqlCommand("GetOpenTicketIDs", conn);
+            cmdGetUsersOpenTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
+            cmdGetUsersOpenTickets.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr = cmdGetUsersOpenTickets.ExecuteReader();
+
+            ddlSelectOpenTicket.DataSource = dr;
+            ddlSelectOpenTicket.DataTextField = "TicketID";
+            ddlSelectOpenTicket.DataValueField = "TicketID";
+            ddlSelectOpenTicket.DataBind();
+
+            conn.Close();
+
+
+            //Load closed tickets belonging to the user
+            conn.Open();
+            SqlCommand cmdGetUsersClosedTickets = new SqlCommand("GetClosedTicketIDs", conn);
+            cmdGetUsersClosedTickets.Parameters.AddWithValue("@UserID", (int)Session["User ID"]);
+            cmdGetUsersClosedTickets.CommandType = CommandType.StoredProcedure;
+            SqlDataReader dr2 = cmdGetUsersClosedTickets.ExecuteReader();
+
+            ddlSelectClosedTicket.DataSource = dr2;
+            ddlSelectClosedTicket.DataTextField = "TicketID";
+            ddlSelectClosedTicket.DataValueField = "TicketID";
+            ddlSelectClosedTicket.DataBind();
+
             conn.Close();
         }
     }

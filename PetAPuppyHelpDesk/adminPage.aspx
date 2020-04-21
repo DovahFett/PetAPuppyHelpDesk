@@ -46,8 +46,8 @@
         <div>
             <asp:DropDownList ID="ddlChangePriority" runat="server" CssClass="alterTicket">
                 <asp:ListItem Text="Low" Value="Low"></asp:ListItem>
-                <asp:ListItem Text="Medium" Value="1"></asp:ListItem>
-                <asp:ListItem Text="High" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Medium" Value="Medium"></asp:ListItem>
+                <asp:ListItem Text="High" Value="High"></asp:ListItem>
             </asp:DropDownList>
 
             <asp:Label ID="lblChangePriority" runat="server" Text="Set Priority:" class="lblSelectTicket" ></asp:Label>
